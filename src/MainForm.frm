@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} MainForm 
-   Caption         =   "Удалить свойство"
-   ClientHeight    =   2415
+   Caption         =   "RemoveProperty 23.1"
+   ClientHeight    =   7560
    ClientLeft      =   45
    ClientTop       =   375
-   ClientWidth     =   3930
+   ClientWidth     =   3960
    OleObjectBlob   =   "MainForm.frx":0000
    StartUpPosition =   1  'CenterOwner
 End
@@ -13,36 +13,34 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
+
 Option Explicit
 
 Private Sub btnCancel_Click()
-    ExitApp
+
+  ExitApp
+    
 End Sub
 
 Private Sub btnRun_Click()
-    RunExecution cmbProperty.Text, currentDoc
+
+  Dim Props As Collection
+  Dim I As Integer
+  
+  Set Props = New Collection
+  For I = 0 To Me.ListBoxProperty.ListCount - 1
+    If Me.ListBoxProperty.Selected(I) Then
+      Props.Add Me.ListBoxProperty.List(I)
+    End If
+  Next
+  
+  RunExecution Props, Me.chkCommon.Value
+    
 End Sub
 
 Private Sub UserForm_Initialize()
-    cmbProperty.AddItem "Наименование"
-    cmbProperty.AddItem "Обозначение"
-    cmbProperty.AddItem "Заготовка"
-    cmbProperty.AddItem "Типоразмер"
-    cmbProperty.AddItem "Материал"
-    cmbProperty.AddItem "Формат"
-    cmbProperty.AddItem "Примечание"
-    cmbProperty.AddItem "Масса"
-    cmbProperty.AddItem "Разработал"
-    cmbProperty.AddItem "Длина"
-    cmbProperty.AddItem "Ширина"
 
-    'cmbProperty.AddItem "Пометка"
-    'cmbProperty.AddItem "Тип документа"
-    'cmbProperty.AddItem "Начертил"
-    'cmbProperty.AddItem "Изменение"
-    'cmbProperty.AddItem "Утвердил"
-    'cmbProperty.AddItem "Техконтроль"
-    'cmbProperty.AddItem "Проверил"
-    'cmbProperty.AddItem "Нормоконтроль"
-    'cmbProperty.AddItem "Организация"
+  InitForm
+
 End Sub
